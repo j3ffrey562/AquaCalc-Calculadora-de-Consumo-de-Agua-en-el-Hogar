@@ -1,7 +1,7 @@
 def main():
-    print("=== Calculadora de Consumo de Agua en el Hogar ===")
+    print("=== Calculadora de Consumo de Agua en el Hogar (Mensual) ===")
     
-    # Solicitar el valor del agua (costo por m^3)
+    # Solicitar el valor del agua (costo por m³)
     try:
         valor_agua = float(input("Ingrese el valor del agua (por m³): "))
     except ValueError:
@@ -27,19 +27,25 @@ def main():
         print("Error: debe ingresar valores numéricos para los consumos.")
         return
 
-    # Calcular el consumo total diario en litros (multiplicado por la cantidad de personas)
+    # Calcular el consumo total diario por persona
     consumo_por_persona = consumo_ducha + consumo_inodoro + consumo_lavadora + consumo_platos + consumo_otro
-    total_litros = consumo_por_persona * num_personas
-    total_m3 = total_litros / 1000.0
 
-    # Calcular el costo diario del agua
-    costo_diario = total_m3 * valor_agua
+    # Calcular el consumo total diario en el hogar
+    total_litros_diarios = consumo_por_persona * num_personas
+
+    # Calcular el consumo mensual en litros (30 días) y convertir a m³
+    total_litros_mensual = total_litros_diarios * 30
+    total_m3_mensual = total_litros_mensual / 1000.0
+
+    # Calcular el costo mensual del agua
+    costo_mensual = total_m3_mensual * valor_agua
 
     # Mostrar resultados
     print("\n=== Resultados ===")
     print(f"Número de personas en el hogar: {num_personas}")
-    print(f"Consumo total diario: {total_litros:.2f} litros (equivalente a {total_m3:.2f} m³)")
-    print(f"Costo diario del agua: {costo_diario:.2f}\n")
+    print(f"Consumo total diario: {total_litros_diarios:.2f} litros ({total_litros_diarios / 1000:.2f} m³)")
+    print(f"Consumo total mensual: {total_litros_mensual:.2f} litros ({total_m3_mensual:.2f} m³)")
+    print(f"Costo mensual del agua: {costo_mensual:.2f}\n")
 
 if __name__ == "__main__":
     main()
